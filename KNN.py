@@ -1,5 +1,4 @@
 import numpy as np
-import statistics 
 from statistics import mode 
 np.random.seed(0)
 #matriz
@@ -14,16 +13,18 @@ mean2 = [6,6]
 cov2 = [[1,0], [0,1]]
 N2 = 5
 classe_2 = np.random.multivariate_normal(mean2, cov2, N2)
-ponto_teste = [4,4]
+ponto_teste = [7,7]
 #concatenando classe_1 com classe_2
 X = np.concatenate((classe_1,classe_2))
 labels = np.concatenate((np.repeat(1,len(classe_1)), np.repeat(-1, len(classe_2))))
 distancia = np.zeros((len(X),1))
 for i in range(0,10):
-	distancia[i] = np.linalg.norm(X[i,0:1] - ponto_teste)
+	distancia[i] = np.linalg.norm(X[i] - ponto_teste)
 distanciaComLabels = np.column_stack((distancia, labels))
-distanciaComLabels.sort(axis=0)
 print("Valores de distancia:")
+print(distanciaComLabels)
+distanciaComLabels = sorted(distanciaComLabels,  key=lambda x: x[0])
+print("Valores de distancia ordenados:")
 print(distanciaComLabels)
 maisProximos = distanciaComLabels[:K]
 print("Classes dos K vizinhos mais proximos")
