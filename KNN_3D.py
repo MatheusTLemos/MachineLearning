@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from statistics import mode 
 np.random.seed(0)
 K = 3
@@ -13,7 +14,7 @@ N2 = 5
 classe_2 = np.random.multivariate_normal(mean2, cov2, N2)
 X = np.concatenate((classe_1,classe_2))
 labels = np.concatenate((np.repeat(1,len(classe_1)), np.repeat(-1, len(classe_2))))
-seq = np.arange(1, 7.5, 0.5)
+seq = np.arange(0, 9, 0.5)
 matrizLabels = np.zeros((len(seq),   len(seq)))
 for i_grid in range(0,  len(seq)):
     for j_grid in range(0,  len(seq)):
@@ -26,4 +27,10 @@ for i_grid in range(0,  len(seq)):
         maisProximos = distanciaComLabels[:K]
         labelPontoTeste = mode([vizinho[1] for vizinho in maisProximos])
         matrizLabels[i_grid,  j_grid] = labelPontoTeste
-print(matrizLabels)
+fig = plt.figure()
+fig.suptitle('Resultado KNN')  
+fig, ax1 = plt.subplots(nrows=1)
+ax1.scatter(classe_1[:,0], classe_1[:,1], c='blue', alpha=0.9)
+ax1.scatter(classe_2[:,0], classe_2[:,1], c='red', alpha=0.9)
+ax1.contour(seq, seq, matrizLabels, levels=0, linewidths=1, colors='k')
+contrl = ax1.contourf(seq, seq, matrizLabels, levels=1, alpha=0.3, colors=['red', 'blue'])
