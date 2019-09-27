@@ -1,0 +1,26 @@
+from sklearn import datasets
+from sklearn import svm
+import numpy as np
+import sys
+np.set_printoptions(threshold=sys.maxsize)
+
+iris = datasets.load_iris()
+digits = datasets.load_digits()
+
+datasetSize = sum(1 for i in digits.target)
+train = np.int(datasetSize * 0.7)
+test = datasetSize - train
+
+clf = svm.SVC(gamma=0.001, C=100.)
+clf.fit(digits.data[:-test], digits.target[:-test])
+res = clf.predict(digits.data[-train:])
+
+expected = digits.target[-train:]
+errors = 0
+for i in range(0, train-1):
+    if res[i] != expected[i]:
+        errors = errors + 1
+        print("ERROU: " + str(i+1) + " ESPERADO: " + str(digits.target[i]) +" RECEBIDO: " + str(res[i]))
+accuracy = (1-(errors/train))*100
+accuracyRounded = round(accuracy, 2)
+print("ACURACIA: " + str(accuracyRounded) + "%")
