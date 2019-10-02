@@ -10,10 +10,11 @@ K = 5
 dados=pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data', delimiter=",")
 numeroLinhas = dados.shape[0]
 numeroColunas = dados.shape[1]
-quantidadeTeste = np.int(numeroLinhas * 0.7)
+quantidadeTeste = np.int(numeroLinhas * 0.3)
 quantidadeTreino = numeroLinhas - quantidadeTeste
-tabelaTreino = dados.iloc[0:quantidadeTeste]
-tabelaTeste = dados.iloc[quantidadeTeste:]
+tabelaTreino = dados.iloc[0:quantidadeTreino]
+tabelaTeste = dados.iloc[quantidadeTreino:]
+print("DADOS DIVIDIDOS")
 
 #Classificação
 erros = 0
@@ -27,6 +28,7 @@ for linhaTeste in range(quantidadeTeste - 1):
             distancia += math.pow(valorTesteNaPropriedadeAtual - valorTreinoNaPropriedadeAtual, 2)
         distancia = math.sqrt(distancia)
         distancias.append((distancia, tabelaTreino.iloc[linhaTreino, numeroColunas - 1]))
+    print("DISTANCIAS CALCULADAS")
     distancias.sort()
     vizinhos = distancias[0:K]
     res = 0
@@ -36,8 +38,9 @@ for linhaTeste in range(quantidadeTeste - 1):
             res += 1
         else:
             res -= 1
+    print("CLASSES CALCULADAS")
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
     if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
-        erros -= 1
-print("QUANTIDADE DE ERROS: " + str(erros))
+        erros += 1
+print("Taxa de acertos: " + str(100 * (1 - (erros/numeroLinhas))))
