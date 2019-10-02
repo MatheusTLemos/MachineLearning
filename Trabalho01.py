@@ -16,6 +16,7 @@ tabelaTreino = dados.iloc[0:quantidadeTeste]
 tabelaTeste = dados.iloc[quantidadeTeste:]
 
 #Classificação
+erros = 0
 for linhaTeste in range(quantidadeTeste - 1):
     distancias = []
     for linhaTreino in range(quantidadeTreino - 1):
@@ -28,4 +29,15 @@ for linhaTeste in range(quantidadeTeste - 1):
         distancias.append((distancia, tabelaTreino.iloc[linhaTreino, numeroColunas - 1]))
     distancias.sort()
     vizinhos = distancias[0:K]
-    print(vizinhos)
+    res = 0
+    for vizinho in vizinhos:
+        (dist, classe) = vizinho
+        if(classe == 2):
+            res += 1
+        else:
+            res -= 1
+    if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
+        erros += 1
+    if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
+        erros -= 1
+print("QUANTIDADE DE ERROS: " + str(erros))
