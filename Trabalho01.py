@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from statistics import mode 
 import pandas as pd
 
+K = 5
+
 #Leitura e divisão dos dados
 dados=pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data', delimiter=",")
 numeroLinhas = dados.shape[0]
@@ -18,9 +20,12 @@ for linhaTeste in range(quantidadeTeste - 1):
     distancias = []
     for linhaTreino in range(quantidadeTreino - 1):
         distancia = 0
-        for prop in range(1, numeroColunas - 1):
+        for prop in range(1, numeroColunas - 2):
             valorTesteNaPropriedadeAtual = float(tabelaTeste.iloc[linhaTeste, prop] if tabelaTeste.iloc[linhaTeste, prop] != '?' else 999999)
             valorTreinoNaPropriedadeAtual = float(tabelaTreino.iloc[linhaTreino, prop] if tabelaTreino.iloc[linhaTreino, prop] != '?' else -999999)
             distancia += math.pow(valorTesteNaPropriedadeAtual - valorTreinoNaPropriedadeAtual, 2)
         distancia = math.sqrt(distancia)
-        print(distancia)
+        distancias.append((distancia, tabelaTreino.iloc[linhaTreino, numeroColunas - 1]))
+    distancias.sort()
+    vizinhos = distancias[0:K]
+    print(vizinhos)
