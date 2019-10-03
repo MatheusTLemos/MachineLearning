@@ -12,7 +12,7 @@ dados=pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/bre
 dados = dados.sample(frac=1)
 numeroLinhas = dados.shape[0]
 numeroColunas = dados.shape[1]
-quantidadeTeste = np.int(numeroLinhas * 0.3)
+quantidadeTeste = np.int(numeroLinhas * 0.7)
 quantidadeTreino = numeroLinhas - quantidadeTeste
 tabelaTreino = dados.iloc[0:quantidadeTreino]
 tabelaTeste = dados.iloc[quantidadeTreino:]
@@ -20,10 +20,6 @@ print("DADOS DIVIDIDOS")
 
 #Classificação
 erros = 0
-positivos = 0
-falsosPositivos = 0
-negativos = 0
-falsosNegativos = 0
 for linhaTeste in range(quantidadeTeste - 1):
     distancias = []
     for linhaTreino in range(quantidadeTreino - 1):
@@ -45,18 +41,8 @@ for linhaTeste in range(quantidadeTeste - 1):
             res -= 1
             negativos += 1
     print("CLASSE CALCULADA: " + str(classe))
-    if(res >= 0):
-        positivos += 1
-    else:
-        negativos += 1
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
-        falsosPositivos += 1
     if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
         erros += 1
-        falsosNegativos += 1
 print("TAXA DE ACERTOS: " + str(100 * (1 - (erros/numeroLinhas))))
-print("VERDADEIROS POSITIVOS: " + str(positivos - falsosPositivos))
-print("VERDADEIROS NEGATIVOS: " + str(negativos - falsosNegativos))
-print("FALSOS POSITIVOS: " + str(falsosPositivos))
-print("FALSOS NEGATIVOS: " + str(falsosNegativos))
