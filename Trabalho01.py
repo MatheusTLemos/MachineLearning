@@ -30,7 +30,6 @@ for linhaTeste in range(quantidadeTeste - 1):
             distancia += math.pow(valorTesteNaPropriedadeAtual - valorTreinoNaPropriedadeAtual, 2)
         distancia = math.sqrt(distancia)
         distancias.append((distancia, tabelaTreino.iloc[linhaTreino, numeroColunas - 1]))
-    print("DISTANCIAS CALCULADAS")
     distancias.sort()
     vizinhos = distancias[0:K]
     res = 0
@@ -40,7 +39,7 @@ for linhaTeste in range(quantidadeTeste - 1):
             res += 1
         else:
             res -= 1
-    print("CLASSES CALCULADAS")
+    print("CLASSE CALCULADA: " + str(classe))
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
     if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
