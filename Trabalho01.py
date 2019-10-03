@@ -1,3 +1,4 @@
+#Matheus Teixeira Lemos 15.2.8032
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -8,6 +9,7 @@ K = 5
 
 #Leitura e divisão dos dados
 dados=pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data', delimiter=",")
+dados = dados.sample(frac=1)
 numeroLinhas = dados.shape[0]
 numeroColunas = dados.shape[1]
 quantidadeTeste = np.int(numeroLinhas * 0.3)
