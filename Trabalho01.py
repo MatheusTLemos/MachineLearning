@@ -44,7 +44,7 @@ for linhaTeste in range(quantidadeTeste - 1):
             positivos += 1
         else:
             res -= 1
-            negativos
+            negativos += 1
     print("CLASSE CALCULADA: " + str(classe))
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
