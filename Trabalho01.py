@@ -44,4 +44,4 @@ for linhaTeste in range(quantidadeTeste - 1):
         erros += 1
     if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
         erros += 1
-print("Taxa de acertos: " + str(100 * (1 - (erros/numeroLinhas))))
+print("TAXA DE ACERTOS: " + str(100 * (1 - (erros/numeroLinhas))))
