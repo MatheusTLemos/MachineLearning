@@ -41,11 +41,14 @@ for linhaTeste in range(quantidadeTeste - 1):
         (dist, classe) = vizinho
         if(classe == 2):
             res += 1
-            positivos += 1
         else:
             res -= 1
             negativos += 1
     print("CLASSE CALCULADA: " + str(classe))
+    if(res >= 0):
+        positivos += 1
+    else:
+        negativos += 1
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
         falsosPositivos += 1
