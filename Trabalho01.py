@@ -20,6 +20,8 @@ print("DADOS DIVIDIDOS")
 
 #Classificação
 erros = 0
+positivos = 0
+falsosPositivos = 0
 for linhaTeste in range(quantidadeTeste - 1):
     distancias = []
     for linhaTreino in range(quantidadeTreino - 1):
@@ -42,6 +44,12 @@ for linhaTeste in range(quantidadeTeste - 1):
     print("CLASSE CALCULADA: " + str(classe))
     if(res >= 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 4):
         erros += 1
+        falsosPositivos += 1
+        positivos += 1
     if(res < 0 and tabelaTeste.iloc[linhaTeste, numeroColunas - 1] == 2):
         erros += 1
 print("TAXA DE ACERTOS: " + str(100 * (1 - (erros/numeroLinhas))))
+print("VERDADEIROS POSITIVOS: " + str(positivos))
+print("VERDADEIROS NEGATIVOS: " + str(numeroLinhas - positivos))
+print("FALSOS POSITIVOS: " + str(falsosPositivos))
+print("FALSOS NEGATIVOS: " + str(erros - falsosPositivos))
