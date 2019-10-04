@@ -1,0 +1,24 @@
+from sklearn.cluster import KMeans
+from sklearn import datasets
+import numpy as np
+
+iris = datasets.load_iris()
+datasetSize = sum(1 for i in iris.target)
+kmeans = KMeans(n_clusters=3, random_state=0).fit(iris.data)
+
+setosa = [0,0,0]
+versicolor = [0,0,0]
+virginica = [0,0,0]
+
+for i in range(0, datasetSize):
+    res = kmeans.predict([iris.data[i]])
+    grupo = res[0]
+    if iris.target[i] == 0:
+        setosa[grupo] += 1
+    if iris.target[i] == 1:
+        versicolor[grupo] += 1
+    if iris.target[i] == 2:
+        virginica[grupo] += 1
+print("SETOSA: " + str(setosa))
+print("VERSICOLOR: " + str(versicolor))
+print("VIRGINICA: " + str(virginica))
