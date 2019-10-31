@@ -29,9 +29,9 @@ for x in range(0,10):
         for coluna in combinacao:
             dataAux[[coluna]] = datasetPandas[[coluna]]
         treinamento = dataAux.head(500)
-        treinamentoLabels = dataAux.tail(500)
-        teste = dataAux.head(69)
-        testeLabels = dataAux.tail(69)
+        treinamentoLabels = labels[0:500]
+        teste = dataAux.tail(69)
+        testeLabels = labels[500:569]
         if treinamento.shape[0] > 0:
             knn.fit(treinamento, treinamentoLabels)
             acuracia = knn.score(teste, testeLabels)
