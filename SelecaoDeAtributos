@@ -29,3 +29,16 @@ for x in range(0,10):
         for coluna in combinacao:
             print(datasetPandas[[coluna]])
             dataAux[[coluna]] = datasetPandas[[coluna]]
+        treinamento = dataAux.head(500)
+        treinamentoLabels = dataAux.tail(69)
+        teste = dataAux.head(500)
+        testeLabels = dataAux.tail(69)
+        knn.fit(treinamento, treinamentoLabels)
+        acuracia = knn.score(teste, testeLabels)
+        if acuracia > melhorAcuracia:
+            melhorAcuracia = acuracia
+            melhorDataset = dataAux
+
+print("Melhor dataset: ")
+print(melhorDataset)
+        
