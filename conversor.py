@@ -1,4 +1,5 @@
 from sklearn import datasets
+import pandas as pd
 
 def converterDatasetSklearnParaPandas(dataset):
     datasetPandas = pd.DataFrame(
