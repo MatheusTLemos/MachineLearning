@@ -27,18 +27,17 @@ for x in range(0,10):
     for combinacao in combinacoes:
         dataAux = pd.DataFrame()  
         for coluna in combinacao:
-            print(datasetPandas[[coluna]])
             dataAux[[coluna]] = datasetPandas[[coluna]]
         treinamento = dataAux.head(500)
-        treinamentoLabels = dataAux.tail(69)
-        teste = dataAux.head(500)
+        treinamentoLabels = dataAux.tail(500)
+        teste = dataAux.head(69)
         testeLabels = dataAux.tail(69)
-        knn.fit(treinamento, treinamentoLabels)
-        acuracia = knn.score(teste, testeLabels)
-        if acuracia > melhorAcuracia:
-            melhorAcuracia = acuracia
-            melhorDataset = dataAux
+        if treinamento.shape[0] > 0:
+            knn.fit(treinamento, treinamentoLabels)
+            acuracia = knn.score(teste, testeLabels)
+            if acuracia > melhorAcuracia:
+                melhorAcuracia = acuracia
+                melhorDataset = dataAux
 
 print("Melhor dataset: ")
 print(melhorDataset)
-        
