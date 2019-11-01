@@ -13,6 +13,15 @@ def converterDatasetSklearnParaPandas(dataset):
     datasetPandas['target'] = pd.Series(dataset.target)
     return datasetPandas
 
+def calcularAcuracia(real, obtido):
+    acertos = 0
+    total = sum(1 for i in real)
+    for x in range(0, total):
+        if real[x] == obtido[x]:
+            acertos += 1
+    return acertos
+        
+
 dataset = datasets.load_breast_cancer()
 datasetPandas = converterDatasetSklearnParaPandas(dataset)
 
@@ -32,10 +41,11 @@ for x in range(0,10):
         treinamento = dataAux.head(500)
         treinamentoLabels = labels[0:500]
         teste = dataAux.tail(69)
-        testeLabels = labels[500:569]
+        testeLabels = labels[500:69]
         if treinamento.shape[0] > 0:
             knn.fit(treinamento, treinamentoLabels)
-            acuracia = knn.score(teste, testeLabels)
+            res = knn.predict(teste)
+            acuracia = calcularAcuracia(testeLabels, res)
             if acuracia > melhorAcuracia:
                 melhorAcuracia = acuracia
                 melhorDataset = dataAux
