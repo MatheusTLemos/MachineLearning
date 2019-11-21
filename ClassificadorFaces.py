@@ -1,5 +1,3 @@
-print(__doc__)
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,7 +16,10 @@ from sklearn.metrics import r2_score
 data = fetch_olivetti_faces()
 targets = data.target
 
-data = data.images.reshape((len(data.images), -1))
+for imagem in data.images:
+    datasetRotacionado.append(np.rot90(imagem))
+
+data = datasetRotacionado.reshape((len(datasetRotacionado), -1))
 train = data[targets < 30]
 test = data[targets >= 30]  # Test on independent people
 
@@ -28,11 +29,11 @@ rng = check_random_state(4)
 face_ids = rng.randint(test.shape[0], size=(n_faces, ))
 test = test[face_ids, :]
 
-n_pixels = data.shape[0]
-X_train = train[:(n_pixels + 1) // 2, :]
-y_train = train[n_pixels // 2:, :]
-X_test = test[:(n_pixels + 1) // 2, :]
-y_test = test[n_pixels // 2:, :]
+n_pixels = data.shape[1]
+X_train = train[:, :(n_pixels + 1) // 2]
+y_train = train[:, n_pixels // 2:]
+X_test = test[:, :(n_pixels + 1) // 2]
+y_test = test[:, n_pixels // 2:]
 
 # Fit estimators
 ESTIMATORS = {
